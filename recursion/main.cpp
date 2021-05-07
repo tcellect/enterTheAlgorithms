@@ -32,23 +32,28 @@
  6. recurance relation
 */
 
+// LINEAR RECURSION
+// one recursive call
+
 // tail recursion is where recursive call is the last statement in a block
 // performs operations only before func call
 // recurTail(n-1) + n --> not a tail recursion func
 // can be easily converted into loop which has constant space complexity
-// order: 3,2,1
+// output: 3,2,1
 void recurTail(int n){
     if (n > 0){
+        printf("reacurTail %d", n);
         recurTail(n - 1);
     }
 }
 // head recursion is where recursive call is the first statement in a block
 // performs operations only after func call
 // isnt that easy to conver into a loop
-// order: 1,2,3
+// output: 1,2,3
 void recurHead(int n){
     if (n > 0){
         recurHead(n - 1);
+        printf("reacurHead %d", n);
     }
 }
 
@@ -88,10 +93,25 @@ int recurStatic(int n){
     return 0;
 }
 
+// TREE RECURSION
+// more than one recursive call
+// proceeds to a next recursive call only after hitting the bottom
+// of a current recursive call
+// space complexity: O(n), time complexity O(2^n)
+// for n = 5 output: 5432112113211211432112113211211
+void recurTreeHead(int n){
+    if (n > 0){
+        printf("%d", n);
+        recurTreeHead(n - 1);
+        recurTreeHead(n - 1);
+    }
+}
+
 int main(int argc, const char * argv[]) {
     int testVal = 5;
-    //recurR(testVal);
-    //recurC(testVal);
+    //recurHead(testVal);
+    //recurTail(testVal);
+    //recurTreeHead(testVal);
     
     int stat1 = recurStatic(testVal);
     // NB! static stays 5 after the last recerStatic call
@@ -100,9 +120,9 @@ int main(int argc, const char * argv[]) {
     int stack1 = recurStack(testVal);
 
 
-    printf("recurStatic call 1: %d\n", stat1);
-    printf("recurStatic call 2: %d\n", stat2);
-    printf("recurStack call 1: %d\n", stack1);
+    printf("recurStatic result 1: %d\n", stat1);
+    printf("recurStatic result 2: %d\n", stat2);
+    printf("recurStack result 1: %d\n", stack1);
 
 
     return 0;
